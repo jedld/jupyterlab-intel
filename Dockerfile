@@ -8,15 +8,9 @@ RUN apt-get update && apt-get install -y \
     && apt update && apt install -y intel-oneapi-mkl libjpeg-dev libpng-dev
 
 WORKDIR /root/neo
-
-RUN wget https://github.com/intel/intel-graphics-compiler/releases/download/igc-1.0.14062.11/intel-igc-core_1.0.14062.11_amd64.deb
-RUN wget https://github.com/intel/intel-graphics-compiler/releases/download/igc-1.0.14062.11/intel-igc-opencl_1.0.14062.11_amd64.deb
-RUN wget https://github.com/intel/compute-runtime/releases/download/23.22.26516.18/intel-level-zero-gpu-dbgsym_1.3.26516.18_amd64.ddeb
-RUN wget https://github.com/intel/compute-runtime/releases/download/23.22.26516.18/intel-level-zero-gpu_1.3.26516.18_amd64.deb
-RUN wget https://github.com/intel/compute-runtime/releases/download/23.22.26516.18/intel-opencl-icd-dbgsym_23.22.26516.18_amd64.ddeb
-RUN wget https://github.com/intel/compute-runtime/releases/download/23.22.26516.18/intel-opencl-icd_23.22.26516.18_amd64.deb
-RUN wget https://github.com/intel/compute-runtime/releases/download/23.22.26516.18/libigdgmm12_22.3.0_amd64.deb
-RUN dpkg -i *.deb
+COPY filelist-debs.txt .
+RUN wget -i filelist-debs.txt \
+    && dpkg -i *.deb
 
 # Build level-zero
 RUN git clone https://github.com/oneapi-src/level-zero.git \
@@ -35,10 +29,8 @@ WORKDIR /usr/app/scipy
 RUN git submodule update --init
 RUN python3 -m venv venv
 RUN source venv/bin/activate
-RUN python3 -m pip install numpy cython pythran pybind11 meson ninja pydevtool rich-click
-RUN python3 -m pip install pytest pytest-xdist pytest-timeout pooch threadpoolctl asv gmpy2 mpmath hypothesis
-RUN python3 -m pip install sphinx "pydata-sphinx-theme==0.9.0" sphinx-design matplotlib numpydoc jupytext myst-nb
-RUN python3 -m pip install mypy typing_extensions types-psutil pycodestyle ruff cython-lint
+COPY filelist-pip.txt .
+RUN python3 -m pip install -r filelist-pip.txt
 RUN python3 dev.py build
 
 # set intel one API env vars
