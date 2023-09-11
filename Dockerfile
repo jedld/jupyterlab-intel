@@ -21,6 +21,16 @@ RUN python3 -m pip install sphinx "pydata-sphinx-theme==0.9.0" sphinx-design mat
 RUN python3 -m pip install mypy typing_extensions types-psutil pycodestyle ruff cython-lint
 RUN python3 dev.py build
 
+# set intel one API env vars
+ENV MKLROOT /opt/intel/oneapi/mkl/latest
+ENV DPCPPROOT /opt/intel/oneapi/compiler/latest
+ENV CPATH="/opt/intel/oneapi/mkl/2023.2.0/include"
+ENV LD_LIBRARY_PATH "/opt/intel/oneapi/mkl/2023.2.0/lib/intel64"
+ENV NLSPATH "/opt/intel/oneapi/mkl/2023.2.0/lib/intel64/locale/%l_%t/%N"
+ENV LIBRARY_PATH "/opt/intel/oneapi/mkl/2023.2.0/lib/intel64"
+ENV PATH "/opt/intel/oneapi/mkl/2023.2.0/bin/intel64:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ENV PKG_CONFIG_PATH "/opt/intel/oneapi/mkl/2023.2.0/lib/pkgconfig"
+
 # Create a new user with sudo privileges
 RUN useradd -ms /bin/bash jupyter
 
@@ -34,9 +44,6 @@ RUN chown -R jupyter:jupyter /home/jupyter
 # Switch to non-root user
 USER jupyter
 
-# set intel one API env vars
-ENV MKLROOT /opt/intel/oneapi/mkl/latest
-ENV DPCPPROOT /opt/intel/oneapi/compiler/latest
 
 # Set working directory
 WORKDIR /home/jupyter
