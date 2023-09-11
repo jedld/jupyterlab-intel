@@ -34,9 +34,12 @@ RUN chown -R jupyter:jupyter /home/jupyter
 # Switch to non-root user
 USER jupyter
 
+# set intel one API env vars
+ENV MKLROOT /opt/intel/oneapi/mkl/latest
+ENV DPCPPROOT /opt/intel/oneapi/compiler/latest
+
 # Set working directory
 WORKDIR /home/jupyter
-
 
 # Start JupyterLab
 CMD ["jupyter", "lab", "--ip=0.0.0.0"]
