@@ -12,7 +12,7 @@ COPY filelist-debs.txt .
 RUN wget -i filelist-debs.txt \
     && dpkg -i *.deb
 
-Build level-zero
+# Build level-zero
 RUN git clone https://github.com/oneapi-src/level-zero.git \
     && mkdir -p level-zero/build && cd level-zero/build \
     && cmake .. \
