@@ -6,7 +6,7 @@ RUN apt-get install -y python3 gcc g++ gfortran libopenblas-dev liblapack-dev pk
 RUN wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB \ | gpg --dearmor | tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
 RUN echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | tee /etc/apt/sources.list.d/oneAPI.list
 RUN apt update
-RUN apt install intel-oneapi-mkl -y
+RUN apt install intel-oneapi-mkl libjpeg-dev libpng-dev -y
 RUN mkdir -p /usr/app
 WORKDIR /usr/app
 RUN git clone https://github.com/scipy/scipy.git
