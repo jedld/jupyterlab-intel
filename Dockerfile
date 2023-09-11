@@ -20,7 +20,7 @@ RUN dpkg -i *.deb
 
 # Build level-zero
 RUN git clone https://github.com/oneapi-src/level-zero.git \
-    && cd level-zero/build \
+    && mkdir -p level-zero/build && cd level-zero/build \
     && cmake .. \
     && cmake --build . --config Release --target package \
     && cmake --build . --config Release --target install
