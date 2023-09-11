@@ -57,4 +57,4 @@ RUN mkdir -p /home/jupyter
 WORKDIR /home/jupyter
 
 # Start JupyterLab
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--NotebookApp.iopub_data_rate_limit=1.0e10"]
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--NotebookApp.iopub_data_rate_limit=1.0e10"]
