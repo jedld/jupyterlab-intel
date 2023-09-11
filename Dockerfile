@@ -43,18 +43,15 @@ ENV MKLROOT=/opt/intel/oneapi/mkl/latest DPCPPROOT=/opt/intel/oneapi/compiler/la
     PATH="/opt/intel/oneapi/mkl/2023.2.0/bin/intel64:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" \
     PKG_CONFIG_PATH="/opt/intel/oneapi/mkl/2023.2.0/lib/pkgconfig"
 
-# # Create a new user with sudo privileges
-RUN useradd -ms /bin/bash jupyter
+
 
 # # Install Python packages
 RUN python3 -m pip install torch==2.0.1a0 torchvision==0.15.2a0 intel_extension_for_pytorch==2.0.110+xpu -f https://developer.intel.com/ipex-whl-stable-xpu && \
     pip install jupyterlab install mkl
 
-# Change ownership of relevant directories (optional but recommended)
-RUN chown -R jupyter:jupyter /home/jupyter
 
-# Switch to non-root user
-USER jupyter
+
+RUN mkdir -p /home/jupyter
 
 # Set working directory
 WORKDIR /home/jupyter
