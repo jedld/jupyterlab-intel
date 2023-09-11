@@ -46,16 +46,20 @@ ENV CMAKE_PREFIX_PATH="/opt/intel/oneapi/compiler/latest/linux/IntelDPCPP:/opt/i
     NLSPATH="/opt/intel/oneapi/compiler/latest/linux/compiler/lib/intel64_lin/locale/%l_%t/%N:/opt/intel/oneapi/mkl/latest/lib/intel64/locale/%l_%t/%N" \
     PATH="/opt/intel/oneapi/compiler/latest/linux/bin/intel64:/opt/intel/oneapi/compiler/latest/linux/bin:/opt/intel/oneapi/mkl/latest/bin/intel64:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" \
     PKG_CONFIG_PATH="/opt/intel/oneapi/compiler/latest/lib/pkgconfig:/opt/intel/oneapi/tbb/latest/env/../lib/pkgconfig:/opt/intel/oneapi/mkl/latest/lib/pkgconfig" \
-    TBBROOT="/opt/intel/oneapi/tbb/latest/env/.."
+    TBBROOT="/opt/intel/oneapi/tbb/latest/env/.." \
+    JUPYTER_CONFIG_DIR="/home/jupyter/.jupyter" \
+    JUPYTER_DATA_DIR="/home/jupyter/.data"
 
 # Install Python packages
 RUN python3 -m pip install torch==2.0.1a0 torchvision==0.15.2a0 intel_extension_for_pytorch==2.0.110+xpu -f https://developer.intel.com/ipex-whl-stable-xpu && \
     pip install jupyterlab install mkl
 
-RUN mkdir -p /home/jupyter
+RUN mkdir -p /home/jupyter/.jupyter && mkdir -p /home/jupyter/.data
 
 # Set working directory
 WORKDIR /home/jupyter
+
+VOLUME /home/jupyter
 
 # Start JupyterLab
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--NotebookApp.iopub_data_rate_limit=1.0e10"]
