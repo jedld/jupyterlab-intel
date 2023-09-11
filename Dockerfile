@@ -45,9 +45,9 @@ RUN python3 dev.py build
 # Set environment variables
 ENV MKLROOT=/opt/intel/oneapi/mkl/latest DPCPPROOT=/opt/intel/oneapi/compiler/latest \
     CPATH="/opt/intel/oneapi/mkl/2023.2.0/include" \
-    LD_LIBRARY_PATH="/opt/intel/oneapi/mkl/2023.2.0/lib/intel64" \
+    LD_LIBRARY_PATH="/opt/intel/oneapi/mkl/2023.2.0/lib/intel64:/usr/local/lib" \
     NLSPATH="/opt/intel/oneapi/mkl/2023.2.0/lib/intel64/locale/%l_%t/%N" \
-    LIBRARY_PATH="/opt/intel/oneapi/mkl/2023.2.0/lib/intel64" \
+    LIBRARY_PATH="/opt/intel/oneapi/mkl/2023.2.0/lib/intel64:/usr/local/lib" \
     PATH="/opt/intel/oneapi/mkl/2023.2.0/bin/intel64:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" \
     PKG_CONFIG_PATH="/opt/intel/oneapi/mkl/2023.2.0/lib/pkgconfig"
 
