@@ -1,0 +1,13 @@
+FROM dustynv/l4t-pytorch:r36.4.0
+
+RUN python3 -m pip install jupyterlab
+
+RUN mkdir -p /home/jupyter/.jupyter && mkdir -p /home/jupyter/.data
+
+# Set working directory
+WORKDIR /home/jupyter
+
+VOLUME /home/jupyter
+
+# Start JupyterLab
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--NotebookApp.iopub_data_rate_limit=1.0e10"]
