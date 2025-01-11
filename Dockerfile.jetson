@@ -1,5 +1,7 @@
 FROM dustynv/l4t-pytorch:r36.4.0
 
+ENV JUPYTER_CONFIG_DIR="/home/jupyter/.jupyter" \
+    JUPYTER_DATA_DIR="/home/jupyter/.data"
 RUN python3 -m pip install jupyterlab
 
 RUN mkdir -p /home/jupyter/.jupyter && mkdir -p /home/jupyter/.data
