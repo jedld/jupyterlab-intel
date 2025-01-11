@@ -20,7 +20,7 @@ RUN git clone https://github.com/oneapi-src/level-zero.git \
     && cmake --build . --config Release --target install
 
 RUN apt update
-RUN apt install intel-oneapi-mkl libjpeg-dev libpng-dev -y
+RUN apt install intel-oneapi-mkl libjpeg-dev libpng-dev texlive-xetex texlive-fonts-recommended texlive-plain-generic -y
 RUN mkdir -p /usr/app
 WORKDIR /usr/app
 RUN git clone https://github.com/scipy/scipy.git
@@ -53,6 +53,7 @@ ENV CMAKE_PREFIX_PATH="/opt/intel/oneapi/compiler/latest/linux/IntelDPCPP:/opt/i
 # Install Python packages
 RUN python3 -m pip install torch==2.0.1a0 torchvision==0.15.2a0 intel_extension_for_pytorch==2.0.110+xpu -f https://developer.intel.com/ipex-whl-stable-xpu && \
     pip install jupyterlab install mkl
+
 
 RUN mkdir -p /home/jupyter/.jupyter && mkdir -p /home/jupyter/.data
 
